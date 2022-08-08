@@ -34,9 +34,9 @@ public class DivinedApplication {
 				String month = splits[0];
 				int day = Integer.valueOf(splits[1].replace(",", ""));
 				int year = Integer.valueOf(splits[2]);
-				String dividned = splits[3];
+				String divined = splits[3];
 
-				System.out.println(year + "/" + month + "/" + day + " -> " + dividned);
+				System.out.println(year + "/" + month + "/" + day + " -> " + divined);
 			}
 
 
