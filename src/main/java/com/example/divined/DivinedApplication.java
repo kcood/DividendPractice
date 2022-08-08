@@ -21,9 +21,25 @@ public class DivinedApplication {
 			Document document = connection.get();
 
 			Elements eles = document.getElementsByAttributeValue("data-test", "historical-prices");
-			Element ele = eles.get(0);
+			Element ele = eles.get(0); //테이블 전체
 
-			System.out.println(ele);
+			Element tbody = ele.children().get(1); //thead = 0, tbody = 1, tfoot=2
+			for (Element e : tbody.children()) {
+				String txt = e.text();
+				if (!txt.endsWith("Dividend")){
+					continue;
+				}
+
+				String[] splits = txt.split(" ");
+				String month = splits[0];
+				int day = Integer.valueOf(splits[1].replace(",", ""));
+				int year = Integer.valueOf(splits[2]);
+				String dividned = splits[3];
+
+				System.out.println(year + "/" + month + "/" + day + " -> " + dividned);
+			}
+
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
