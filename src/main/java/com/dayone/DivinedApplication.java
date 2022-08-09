@@ -17,11 +17,7 @@ import java.io.IOException;
 public class DivinedApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(DivinedApplication.class, args);
+		SpringApplication.run(DivinedApplication.class, args);
 
-		Scraper scraper = new YahooFinanceScraper(); //NaverFinanceScrapper
-		//var result = scraper.scrap(Company.builder().ticker("O").build());
-		var result = scraper.scrapCompanyByTicker("MMM");
-		System.out.println(result);
 	}
 }
