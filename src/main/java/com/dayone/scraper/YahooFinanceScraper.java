@@ -15,13 +15,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YahooFinanceScraper {
+public class YahooFinanceScraper implements Scraper {
 
     private static final String STATISTICS_URL = "https://finance.yahoo.com/quote/%s/history?period1=%d&period2=%d&interval=1mo";
+    private static final String SUMMARY_URL = "https://finance.yahoo.com/quote/%s?p=%s";
+
     private static final long START_TIME = 86400; //60초 * 60분 * 24시간 (1일)
 
 
-    public ScrapedResult scrap(Company company){
+    @Override
+    public ScrapedResult scrape(Company company){
         var scrapResult = new ScrapedResult();
         scrapResult.setCompany(company);
         try {
@@ -71,7 +74,24 @@ public class YahooFinanceScraper {
         return scrapResult;
     }
 
+    @Override
     public Company scrapCompanyByTicker(String ticker) {
+        String url = String.format(SUMMARY_URL, ticker);
+
+        try {
+            Document document = Jsoup.connect(url).get();
+            Element titleEle = document.getElementsByTag("h1").get(0);
+
+            String title = titleEle.text().split(" - ")[1].trim(); //야후 파이낸스가 회사명 구분할때의 특성때문에, 깔끔하게 고치기위해
+
+            return Company.builder()
+                    .ticker(ticker)
+                    .name(title)
+                    .build();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
