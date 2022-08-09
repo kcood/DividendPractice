@@ -1,4 +1,4 @@
-package com.example.divined.web;
+package com.dayone.web;
 
 public class AuthController {
 }

@@ -1,4 +1,4 @@
-package com.example.divined;
+package com.dayone;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class DivinedApplication {
 
 	public static void main(String[] args) {
-//		SpringApplication.run(DivinedApplication.class, args);
+		SpringApplication.run(DivinedApplication.class, args);
 
 		try {
 			Connection connection = Jsoup.connect("https://finance.yahoo.com/quote/QQQ/history?period1=921024000&period2=1659830400&interval=1mo&filter=history&frequency=1mo&includeAdjustedClose=true");

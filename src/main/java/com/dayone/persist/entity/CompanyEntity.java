@@ -1,4 +1,4 @@
-package com.example.divined.persist.entity;
+package com.dayone.persist.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
