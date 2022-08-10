@@ -10,6 +10,7 @@ import com.dayone.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.Trie;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -57,6 +58,15 @@ public class CompanyService {
                                                             .collect(Collectors.toList());
         this.dividendRepository.saveAll(dividendEntities);
         return company;
+    }
+
+    public List<String> getCompanyNamesByKeyword(String keyword){
+        Pageable limit = PageRequest.of(0,10);
+
+        Page<CompanyEntity> companyEntities = this.companyRepository.findByNameStartingWithIgnoreCase(keyword, limit);
+        return companyEntities.stream()
+                .map(e -> e.getName())
+                .collect(Collectors.toList()); //companyEntities에 있는 회사명 추출
     }
 
     public void addAutocompleteKeyword(String keyword){
