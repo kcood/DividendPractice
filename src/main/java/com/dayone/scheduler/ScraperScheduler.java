@@ -2,6 +2,7 @@ package com.dayone.scheduler;
 
 import com.dayone.model.Company;
 import com.dayone.model.ScrapedResult;
+import com.dayone.model.constants.CacheKey;
 import com.dayone.persist.CompanyRepository;
 import com.dayone.persist.DividendRepository;
 import com.dayone.persist.entity.CompanyEntity;
@@ -9,6 +10,8 @@ import com.dayone.persist.entity.DividendEntity;
 import com.dayone.scraper.Scraper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,15 +20,17 @@ import java.util.List;
 @Slf4j
 @Component
 @AllArgsConstructor
+@EnableCaching
 public class ScraperScheduler {
 
     private final CompanyRepository companyRepository;
-
     private final DividendRepository dividendRepository; //배당금 정보 저장 위해서
 
     private final Scraper yahooFinanceScraper;
 
 
+    @CacheEvict(value = CacheKey.KEY_FINANCE, allEntries = true) //레디스 캐시 키 중 finance에 해당하는 데이터는 모두 비우기
+    // scheduler가 동작할때마다 캐시에 있는 데이터가 모두 비워지게됨. 배당금이 조회될때마다 다시 올라가게됨
     @Scheduled(cron = "${scheduler.scrap.yahoo}")
     public void yahooFinanceScheduling(){
         log.info("scraping scheduler started");

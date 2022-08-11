@@ -14,6 +14,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
+
 @RequiredArgsConstructor
 @Configuration
 public class CacheConfig {
@@ -29,7 +31,8 @@ public class CacheConfig {
         RedisCacheConfiguration conf = RedisCacheConfiguration.defaultCacheConfig()
                 /*serialization, 직렬화하기 */
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
+                /*.entryTtl(Duration.of(원하는기간))*/;//캐시 유효기간 설정.
 
                 return RedisCacheManager.RedisCacheManagerBuilder
                         .fromConnectionFactory(redisConnectionFactory)
