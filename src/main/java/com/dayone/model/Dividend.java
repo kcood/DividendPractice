@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Dividend {
 
     @JsonSerialize(using = LocalDateTimeSerializer.class)

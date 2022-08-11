@@ -36,12 +36,9 @@ public class ScraperScheduler {
         //회사 하나씩 순회하면서 배당금 정보를 스크래핑
         for (var company : companies){
             log.info("scraping scheduler started -> "+ company.getName());
-            ScrapedResult scrapedResult = this.yahooFinanceScraper.scrap(Company.builder()/*scrap 메소드는 파라미터로 company 타입을 받음.
-                                                                                            지금 여기 company는 company타입이 아니라 companEntity니까
-                                                                                            company빌더로 company 인스턴스에 매핑시켜줘야함*/
-                                                                            .name(company.getName())
-                                                                            .ticker(company.getTicker())
-                                                                            .build());
+            ScrapedResult scrapedResult = this.yahooFinanceScraper.scrap(
+                                                                    new Company(company.getTicker(), company.getName()));
+
 
             //스크래핑한 배당금 정보 중 db에 없는 값은 저장
             scrapedResult.getDividends().stream()

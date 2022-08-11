@@ -43,27 +43,20 @@ public class FinanceService {
         * Company랑 리스트<Dividend>로 구성돼있음. 일반 모델 클래스로 매핑하는 작업 필요*/
 
 
-        List<Dividend> dividends = new ArrayList<>(); //결과를 담을 dividends 리스트 만들기
+        //List<Dividend> dividends = new ArrayList<>(); //결과를 담을 dividends 리스트 만들기
 
-        for (var entity : dividendEntities){
-            dividends.add(Dividend.builder()
-                                    .date(entity.getDate())
-                                    .dividend(entity.getDividend())
-                                    .build());
-        }
+//        for (var entity : dividendEntities){
+//            dividends.add(Dividend.builder()
+//                                    .date(entity.getDate())
+//                                    .dividend(entity.getDividend())
+//                                    .build());
+//        }
 
-        /*for문 말고 스트림으로도 가능. 취향에 맞게
+        //for문 말고 스트림으로도 가능. 취향에 맞게
         List<Dividend> dividends = dividendEntities.stream()
-                                                    .map(e -> Dividend.builder()
-                                                            .date(e.getDate())
-                                                            .dividend(e.getDividend())
-                                                            .build())
-                                                    .collect(Collectors.toList()); */
+                                                    .map(e -> new Dividend(e.getDate(), e.getDividend()))
+                                                    .collect(Collectors.toList());
 
-        return new ScrapedResult(Company.builder() /*CompanyEntity를 Company 모델로 바꿔주기*/
-                                        .ticker(company.getTicker())
-                                        .name(company.getName())
-                                        .build(),
-                dividends);
+        return new ScrapedResult(new Company(company.getTicker(), company.getName()), dividends);
     }
 }
