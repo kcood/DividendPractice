@@ -8,6 +8,7 @@ import com.dayone.persist.DividendRepository;
 import com.dayone.persist.entity.CompanyEntity;
 import com.dayone.persist.entity.DividendEntity;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +23,12 @@ public class FinanceService {
     private final CompanyRepository companyRepository;
     private final DividendRepository dividendRepository;
 
+    //배당금 정보를 캐싱하기위한 고려사항
+    //요청이 얼마나 자주 오는가? -> 특정데이터에 대한 요청 몰리는편. 유명한 회사는 자주
+    //자주 변경되는 데이터인가? -> 배당금은 몇달에 한번.
+    // -> 배당금 데이터는 캐시 처리가 더 효율적
+
+    @Cacheable(key = "#companyName",value = "finance")
     public ScrapedResult getDividendByCompanyName(String companyName) {
         //1.회사명 기준으로 회사 정보 조회
         CompanyEntity company = this.companyRepository.findByName(companyName)
