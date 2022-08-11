@@ -32,7 +32,7 @@ public class CacheConfig {
                 /*serialization, 직렬화하기 */
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()))
-                /*.entryTtl(Duration.of(원하는기간))*/;//캐시 유효기간 설정.
+                /*.entryTtl(Duration.of(원하는기간.ex"ofHours(5L)"))*/;//캐시 유효기간 설정.
 
                 return RedisCacheManager.RedisCacheManagerBuilder
                         .fromConnectionFactory(redisConnectionFactory)
