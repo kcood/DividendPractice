@@ -26,8 +26,8 @@ public class FinanceService {
 
     //배당금 정보를 캐싱하기위한 고려사항
     //요청이 얼마나 자주 오는가? -> 특정데이터에 대한 요청 몰리는편. 유명한 회사는 자주
-    //자주 변경되는 데이터인가? -> 배당금은 몇달에 한번.
-    // -> 배당금 데이터는 캐시 처리가 더 효율적
+    //자주 변경되는 데이터인가? -> 배당금은 몇달에 한번
+    // ----> 배당금 데이터는 캐시 처리가 효율적
 
     @Cacheable(key = "#companyName",value = CacheKey.KEY_FINANCE)
     public ScrapedResult getDividendByCompanyName(String companyName) {
