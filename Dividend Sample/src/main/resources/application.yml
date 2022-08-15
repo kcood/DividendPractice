@@ -1,0 +1,61 @@
+spring:
+<<<<<<< HEAD
+
+  h2:
+      console:
+          enabled: true
+          h2.console.path: /h2-console
+
+  jpa:
+        hibernate:
+            ddl-auto: create
+            use-new-id-generator-mappings: false
+        show-sql: true
+        defer-datasource-initialization: true
+
+  datasource:
+      driver-class-name: org.h2.Driver
+      url: jdbc:h2:mem:dayone;DB_CLOSE_DELAY=-1
+      username: sa
+      password:
+
+  redis:
+      host: localhost
+      port: 6379
+
+  jwt:
+      secret: ZGF5b25lLXNwcmluZy1ib290LWRpdmlkZW5kLXByb2plY3QtdHV0b3JlaWFsLWp3dC1zcmNyZXQta2V5Cg==
+=======
+  application:
+    name: dayone-financial
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+      use-new-id-generator-mappings: false
+    show-sql: true
+    defer-datasource-initialization: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:dayone;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  redis:
+    host: localhost
+    port: 6379
+
+  jwt:
+    secret: ZGF5b25lLXNwcmluZy1ib290LWRpdmlkZW5kLXByb2plY3QtdHV0b3JlaWFsLWp3dC1zcmNyZXQta2V5Cg==
+>>>>>>> c283280 (Initial commit)
+
+
+scheduler:
+  scrap:
+    yahoo: "0 0 0 * * *"
